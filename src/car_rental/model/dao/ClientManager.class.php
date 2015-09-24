@@ -15,8 +15,9 @@ class ClientManager {
         $sQuery = "SELECT * FROM clients WHERE login ='{$oClient->getLogin()}' limit 1";
         
         $sResult = DBOperation::getOne($sQuery);
+        $hash = $sResult['passwd'];
 
-        if($sResult != false && $sResult['passwd'] == sha1($sResult['salt']).sha1($oClient->getPasswd())){
+        if($sResult != false && $sResult['passwd'] == password_verify($oClient->getPasswd(), $hash) ){
             $_SESSION['role'] = $sResult['role'];
         }else{
             unset($_SESSION['role']);
@@ -34,7 +35,6 @@ class ClientManager {
 
         //hash and salt the password
         $sPassword = $oClient->getPasswd();
-        $sPassword = sha1($sPassword);
         $sPasswordSalted = password_hash($sPassword, PASSWORD_DEFAULT);
         
         //insert into Clients table

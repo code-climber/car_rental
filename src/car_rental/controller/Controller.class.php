@@ -14,7 +14,7 @@ class Controller {
         $this->exec();
     }
     protected function exec(){
-
+        
         //controller par défaut
         $sGetController = 'front';
         
@@ -31,6 +31,7 @@ class Controller {
             $sGetMethod = $_GET['method'];
         }
        
+        ob_start();
         //inclusion du header
         require ROOT . 'inc/site.header.inc.php';
         
@@ -60,6 +61,7 @@ class Controller {
         
         //inclure le footer
         require ROOT . 'inc/site.footer.inc.php';
+        ob_flush();
     }
     
     public static function errorAction(){

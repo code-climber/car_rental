@@ -2,7 +2,6 @@
 
 namespace car_rental\controller;
 
-use car_rental\controller\Controller;
 use car_rental\controller\frontController;
 use car_rental\model\Client;
 use car_rental\model\dao\ClientManager;
@@ -37,7 +36,7 @@ class backController {
      */
 
     public function createAccountAction() {
-        
+
         //prepare all values to be checked with a filter
         $aOptions = array(
             'first-name' => FILTER_SANITIZE_STRING,
@@ -51,72 +50,70 @@ class backController {
             'email' => FILTER_SANITIZE_EMAIL,
             'conf-email' => FILTER_SANITIZE_EMAIL
         );
-        
+
         $aFilteredForm = filter_input_array(INPUT_POST, $aOptions);
-        
+
         //if login allready exist, set it false in the filtered array
         $bIsUniqueLogin = Callback::validLogin($aFilteredForm['login']);
-        if($bIsUniqueLogin == false){
-            $aFilteredForm['login']= false;
+        if ($bIsUniqueLogin == false) {
+            $aFilteredForm['login'] = false;
         }
-        
+
         //if passwords does not match, set it false in the filtered array
-        if($aFilteredForm['password'] !== $aFilteredForm['conf-password']){
-            $aFilteredForm['conf-password']= false;
+        if ($aFilteredForm['password'] !== $aFilteredForm['conf-password']) {
+            $aFilteredForm['conf-password'] = false;
         }
-        
-        
+
+
         //error messages
-        if($aFilteredForm != null){
+        if ($aFilteredForm != null) {
             $aErrorMessage = array(
                 'login' => 'Login exist already. Please choose another one.',
-                'password'=>'Password is at least : '
+                'password' => 'Password is at least : '
                 . '8 characters, one majuscule, one minuscule, one number, and one special character',
                 'conf-password' => 'passwd don\'t match.',
                 'email' => 'L\'adresse email n\'est pas valide',
                 'conf-email' => 'email address don\'t match. '
             );
         }
-        
+
         //count error. If error == 0, we can then send data to db.
         $iErrorNb = 0;
-        
+
         /*
          * if fields are empty, ask to fill them.
          * else if not valid, send a precise message.
          */
-       $aShowErrors = array();
-        foreach($aOptions as $key=>$value){
-            if(empty($_POST[$key])){
-                $aShowErrors[] = 'Please fill the field '.$key.'.<br>';
+        $aShowErrors = array();
+        foreach ($aOptions as $key => $value) {
+            if (empty($_POST[$key])) {
+                $aShowErrors[] = 'Please fill the field ' . $key . '.<br>';
                 $iErrorNb++;
-            }elseif($aFilteredForm[$key] === false){
-                $aShowErrors[] = $aErrorMessage[$key].'<br>';
+            } elseif ($aFilteredForm[$key] === false) {
+                $aShowErrors[] = $aErrorMessage[$key] . '<br>';
                 $iErrorNb++;
             }
         }
-        if($iErrorNb > 0){
+        if ($iErrorNb > 0) {
             require ROOT . 'src/car_rental/view/create_account.php';
         }
-        
-       
+
         /*
          * if no error and form safe, hydrate a client object and send it to
          * client manager to add this new client in the database.
          */
-        if($iErrorNb == 0){
+        if ($iErrorNb == 0) {
             $oClient = new Client();
             $oClient->setFirstName($aFilteredForm['first-name']);
             $oClient->setLastName($aFilteredForm['last-name']);
             $oClient->setLogin($aFilteredForm['login']);
             $oClient->setPasswd($aFilteredForm['password']);
             $oClient->setEmail($aFilteredForm['email']);
-            
+
             ClientManager::addClient($oClient);
-            
-            frontController::homeAction();
+
+            $this->showLoginFormAction();
         }
-        
     }
 
     private function performConnection() {
@@ -126,7 +123,10 @@ class backController {
         $oClient->setPasswd($_POST['passwd']);
 
         if (ClientManager::connect($oClient)) {
-            $this->homeAction();
+            frontController::homeAction();
+            $urlParams = 'controller=front&method=home';
+            $url = 'http://localhost/3WA/developpement/php/car_rental/index.php?' . $urlParams;
+            header('Location: ' . $url);
         } else {
             $bLoginError = true;
             require ROOT . 'src/car_rental/view/login.php';
@@ -145,6 +145,9 @@ class backController {
     public function logoutAction() {
         unset($_SESSION['role']);
         frontController::homeAction();
+        $urlParams = 'controller=back&method=showLoginForm';
+        $url = 'http://localhost/3WA/developpement/php/car_rental/index.php?' . $urlParams;
+        header('Location: ' . $url);
     }
 
 }
