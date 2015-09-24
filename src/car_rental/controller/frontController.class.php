@@ -61,4 +61,17 @@ class frontController {
 //        var_dump($aLocations);die();
         require ROOT . 'src/car_rental/view/findus.php';
     }
+    
+    /*
+     * TREAT SEARCH CAR FORM DATA
+     */
+    public static function searchCarFormAction(){
+        /*
+         * checking if a $_SESSION variable identify a client.
+         * if yes, get and check form values.
+         * if not, go to the create an account form.
+         */
+      
+        //Search for available cars
+    }
 }

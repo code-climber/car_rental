@@ -19,10 +19,33 @@ class ClientManager {
         if($sResult != false && $sResult['passwd'] == sha1($sResult['salt']).sha1($oClient->getPasswd())){
             $_SESSION['role'] = $sResult['role'];
         }else{
-            die("zaz");
             unset($_SESSION['role']);
             return false;
         }
         return true;
+    }
+    
+    public static function addClient(Client $oClient){
+        //getting value from object
+        $sFirstName = $oClient->getFirstName();
+        $sLastName = $oClient->getLastName();
+        $sEmail = $oClient->getEmail();
+        $sLogin = $oClient->getLogin();
+
+        //hash and salt the password
+        $sPassword = $oClient->getPasswd();
+        $sPassword = sha1($sPassword);
+        $sPasswordSalted = password_hash($sPassword, PASSWORD_DEFAULT);
+        
+        //insert into Clients table
+        $sQuery = 'INSERT INTO Clients (first_name, last_name, email, login, passwd) ';
+        $sQuery .= "VALUES ('$sFirstName','$sLastName','$sEmail','$sLogin','$sPasswordSalted')";
+        
+        $bSuccess = DBOperation::exec($sQuery);
+        
+        if(!$bSuccess){
+            return false;
+        }
+        return true;  
     }
 }

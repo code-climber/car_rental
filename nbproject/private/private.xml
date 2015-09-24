@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/wamp/www/3WA/developpement/php/car_rental/src/car_rental/controller/backController.class.php</file>
+            <file>file:/C:/wamp/www/3WA/developpement/php/car_rental/src/car_rental/controller/Controller.class.php</file>
+            <file>file:/C:/wamp/www/3WA/developpement/php/car_rental/src/car_rental/model/dao/ClientManager.class.php</file>
+            <file>file:/C:/wamp/www/3WA/developpement/php/car_rental/inc/menu.inc.php</file>
+            <file>file:/C:/wamp/www/3WA/developpement/php/car_rental/src/car_rental/view/create_account.php</file>
+        </group>
     </open-files>
 </project-private>
