@@ -25,7 +25,7 @@
     <body class="<?php echo $sGetController . "-" . $sGetMethod; ?>">
         <div class="container">
             <header>
-                <h2><span>Car</span> Rental</h2>
+                <h2><a href="index.php?"><span>Car</span> Rental</a></h2>
                 <?php require 'inc/menu.inc.php'; ?>
                 <div class="clear"></div>
             </header>

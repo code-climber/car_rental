@@ -10,7 +10,11 @@ namespace car_rental\model;
  */
 class Location {
     private $idLocation;
-    private $location;
+    private $sLocation;
+    private $sPickupLoc;
+    private $sDropoffLoc;
+    private $dPickup;
+    private $dDropoff;
     private $desc_location;
     private $latlon;
     
@@ -19,7 +23,23 @@ class Location {
     }
 
     function getLocation() {
-        return $this->location;
+        return $this->sLocation;
+    }
+
+    function getPickupLoc() {
+        return $this->sPickupLoc;
+    }
+
+    function getDropoffLoc() {
+        return $this->sDropoffLoc;
+    }
+
+    function getPickup() {
+        return $this->dPickup;
+    }
+
+    function getDropoff() {
+        return $this->dDropoff;
     }
 
     function getDesc_location() {
@@ -34,8 +54,24 @@ class Location {
         $this->idLocation = $idLocation;
     }
 
-    function setLocation($location) {
-        $this->location = $location;
+    function setLocation($sLocation) {
+        $this->sLocation = $sLocation;
+    }
+
+    function setPickupLoc($sPickupLoc) {
+        $this->sPickupLoc = $sPickupLoc;
+    }
+
+    function setDropoffLoc($sDropoffLoc) {
+        $this->sDropoffLoc = $sDropoffLoc;
+    }
+
+    function setPickup($dPickup) {
+        $this->dPickup = $dPickup;
+    }
+
+    function setDropoff($dDropoff) {
+        $this->dDropoff = $dDropoff;
     }
 
     function setDesc_location($desc_location) {
@@ -45,7 +81,5 @@ class Location {
     function setLatlon($latlon) {
         $this->latlon = $latlon;
     }
-
-
-    
+ 
 }

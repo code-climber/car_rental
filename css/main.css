@@ -44,8 +44,7 @@ h1,nav a, h2, h3, .price{
 
 header, nav a{
     color:#203C4D;
-    font-weight: bold;
-    
+    font-weight: bold;  
 }
 
 header{
@@ -175,10 +174,16 @@ form div:last-child input{
     color:#fff;
     padding:1rem;
     text-transform:uppercase;
-    font-weight: bold;
-    
+    font-weight: bold;  
 }
 
+.error-form{
+    background-color: #B94A48;
+    color: #fff;
+    padding:1rem;
+    margin-bottom:2rem;
+    width:70%;
+}
 
 /************   FOOTER   ************/
 
@@ -220,15 +225,6 @@ footer a:hover{
 footer li{
     margin-bottom:0.5rem;
 }
-
-
-
-
-
-
-
-
-
 
 
 #map{

@@ -12,9 +12,15 @@
             <h2><?php echo $oCar->getCategory() . " " . $oCar->getBrand() . " " . $oCar->getModel(); ?></h2>
             <p><?php echo $oCar->getDescription(); ?>
                 <br>
+                <?php if(array_key_exists('pick-date', $_SESSION)): ?>
+                <span><a href="index.php?controller=front&method=showOneCar&idCar=<?php echo $oCar->getId(); ?>" <i class="fa fa-angle-double-right"></i>>
+                        Continue</a>
+                </span>
+                <?php else: ?>
                 <span><a href="index.php?controller=front&method=showOneCar&idCar=<?php echo $oCar->getId(); ?>" <i class="fa fa-angle-double-right"></i>>
                         View Details</a>
                 </span>
+                <?php endif; ?>
                 <?php
                 $aTags = $oCar->getTags();
                 ?>
