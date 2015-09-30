@@ -38,14 +38,16 @@ class CarManager {
         $sQuery .= 'ORDER BY p.price_day ';
 
         $aCars = array();
-
-        foreach (DBOperation::getAll($sQuery) as $aCar) {
+        
+        $param = '';
+        foreach (DBOperation::getAll($sQuery,$param) as $aCar) {
+            $idCar = $aCar['id'];
             $sQueryTags = 'SELECT t.tag,c.id FROM `describe` AS d JOIN tags AS t ON t.id=d.tag_id ';
-            $sQueryTags .= 'JOIN cars AS c ON c.id=d.car_id WHERE c.id=' . $aCar['id'];
+            $sQueryTags .= 'JOIN cars AS c ON c.id=d.car_id WHERE c.id= :idCar';
             $sQueryTags .= ' ORDER BY c.id ;';
 
             $aTags = array();
-            foreach (DBOperation::getAll($sQueryTags) as $aTag) {
+            foreach (DBOperation::getAll($sQueryTags, $idCar) as $aTag) {
                 $aTags[] = $aTag;
             }
             $aCar['tags'] = $aTags;
@@ -59,20 +61,20 @@ class CarManager {
         $sQuery = 'SELECT c.id,c.brand,c.model,c.color,c.description,c.image,p.price_day,cat.category FROM cars AS c ';
         $sQuery .= 'JOIN prices AS p ON c.price_id = p.id_price ';
         $sQuery .= 'JOIN categories AS cat ON cat.id_category = c.category_id ';
-        $sQuery .= 'WHERE c.id = ' . $idCar;
-
+        $sQuery .= 'WHERE c.id = :idCar';
+        
 //        requête de récupération des tags
         $sTagQuery = 'SELECT t.tag,c.id FROM `describe` AS d JOIN tags AS t ON t.id=d.tag_id ';
-        $sTagQuery .= 'JOIN cars AS c ON c.id=d.car_id WHERE c.id=' . $idCar;
+        $sTagQuery .= 'JOIN cars AS c ON c.id=d.car_id WHERE c.id= :idCar';
 
         //remplissage d'un tableau de voitures sans les tags
 
         $aCar = array();
-        $aCar = DBOperation::getOne($sQuery);
+        $aCar = DBOperation::getOne($sQuery,$idCar);
 
         //remplissage d'un tableau de tags
         $aTags = array();
-        foreach (DBOperation::getAll($sTagQuery) as $aTag) {
+        foreach (DBOperation::getAll($sTagQuery,$idCar) as $aTag) {
             $aTags[] = $aTag;
         }
 

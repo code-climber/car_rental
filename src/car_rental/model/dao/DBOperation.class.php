@@ -29,6 +29,7 @@
                 self::$oDataBase = new \PDO('mysql:host=' . self::HOST . ';dbname=' . self::NAME, self::USER, self::PWD);
                 self::$oDataBase->exec("SET CHARACTER SET utf8");
                 self::$oDataBase->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+                self::$oDataBase->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             }
         }
 
@@ -39,12 +40,16 @@
          *
          * @return array all results.
          */
-        public static function getAll($sQuery)
+        public static function getAll($sQuery,$bindParam)
         {
             self::init();
+            
             try {
                 $aAll = array();
-                foreach (self::$oDataBase->query($sQuery) as $aRow) {
+                $stmt = self::$oDataBase->prepare($sQuery);
+                $stmt->bindParam(':idCar', $bindParam);
+                $stmt->execute();
+                foreach ($stmt as $aRow) {
                     $aAll[] = $aRow;
                 }
             } catch (\PDOException $oPdoException) {
@@ -60,12 +65,14 @@
          *
          * @return array single row.
          */
-        public static function getOne($sQuery)
+        public static function getOne($sQuery,$bindParam)
         {
             self::init();
             try {
-                $oQueryResult = self::$oDataBase->query($sQuery) or die(print_r(self::$oDataBase->errorInfo()));
-                $aRow = $oQueryResult->fetch();
+                $stmt = self::$oDataBase->prepare($sQuery);
+                $stmt->bindParam(':idCar', $bindParam);
+                $stmt->execute() or die(print_r(self::$oDataBase->errorInfo()));
+                $aRow = $stmt->fetch();
 
             } catch (PDOException $oPdoException) {
                 echo 'PDO Exception : ' . $oPdoException->getMessage();
@@ -80,11 +87,17 @@
          *
          * @return bool true if success, false otherwise.
          */
-        public static function exec($sQuery)
+        public static function exec($sQuery,$aQueryParams)
         {
             self::init();
             try {
-                $iAffectedRows = self::$oDataBase->exec($sQuery) or die(print_r(self::$oDataBase->errorInfo()));
+                
+                $stmt = self::$oDataBase->prepare($sQuery);
+                
+                foreach($aQueryParams as $key => $value){
+                    $stmt->bindValue($key, $value);
+                }
+                $iAffectedRows = $stmt->execute() or die(print_r(self::$oDataBase->errorInfo()));
             } catch (PDOException $oPdoException) {
                 echo 'PDO Exception : ' . $oPdoException->getMessage();
             }

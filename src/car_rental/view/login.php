@@ -8,7 +8,7 @@
     <label for="login">Login</label>
     <input type="text" name="login" id="login">
     <label for="passwd">Password</label>
-    <input type="text" name="passwd" id="passwd">
+    <input type="password" name="passwd" id="passwd">
     <input type="submit" value="Send" name="connect">
 </form>
 

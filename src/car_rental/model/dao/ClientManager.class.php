@@ -39,9 +39,11 @@ class ClientManager {
         
         //insert into Clients table
         $sQuery = 'INSERT INTO Clients (first_name, last_name, email, login, passwd) ';
-        $sQuery .= "VALUES ('$sFirstName','$sLastName','$sEmail','$sLogin','$sPasswordSalted')";
+        $sQuery .= "VALUES (':firstName',':lastName',':email',':login',':saltedPasswd')";
         
-        $bSuccess = DBOperation::exec($sQuery);
+        $aQueryParams = array(':firstName' => $sFirstName,':lastName' => $sLastName,':email' => $sEmail,':login' => $sLogin,':saltedPasswd'=>$sPasswordSalted);
+       
+        $bSuccess = DBOperation::exec($sQuery,$aQueryParams);
         
         if(!$bSuccess){
             return false;

@@ -37,9 +37,9 @@ class Callback {
     }
 
     public static function validLogin($sLogin) {
-        $sQuery = 'SELECT login FROM clients WHERE login = \'' . $sLogin . '\';';
+        $sQuery = 'SELECT login FROM clients WHERE login = :idCar';
 
-        $bIsLoginExist = DBOperation::getOne($sQuery);
+        $bIsLoginExist = DBOperation::getOne($sQuery,$sLogin);
 
         if ($bIsLoginExist == true) {
             return false;

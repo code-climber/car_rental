@@ -25,7 +25,7 @@ class CategoryManager {
         
         $aCategories = array();
         
-        foreach(DBOperation::getAll($sQuery) as $aCategory){
+        foreach(DBOperation::getAll($sQuery,'') as $aCategory){
             $aCategories[] = self::convertToObject($aCategory);
         }
         return $aCategories;

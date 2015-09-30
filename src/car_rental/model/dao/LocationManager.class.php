@@ -25,7 +25,7 @@ class LocationManager {
 //        var_dump($sQuery);die();
         $aLocations = array();
         
-        foreach(DBOperation::getAll($sQuery) as $aLocation){
+        foreach(DBOperation::getAll($sQuery,'') as $aLocation){
             $aLocations[] = self::convertToObject($aLocation);
         }
         return $aLocations;
