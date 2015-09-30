@@ -39,7 +39,7 @@ class ClientManager {
         
         //insert into Clients table
         $sQuery = 'INSERT INTO Clients (first_name, last_name, email, login, passwd) ';
-        $sQuery .= "VALUES (':firstName',':lastName',':email',':login',':saltedPasswd')";
+        $sQuery .= "VALUES (:firstName,:lastName,:email,:login,:saltedPasswd)";
         
         $aQueryParams = array(':firstName' => $sFirstName,':lastName' => $sLastName,':email' => $sEmail,':login' => $sLogin,':saltedPasswd'=>$sPasswordSalted);
       

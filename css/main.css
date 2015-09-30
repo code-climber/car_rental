@@ -61,6 +61,10 @@ nav{
     text-align:right;
 }
 
+nav ul{
+    z-index: 9999;
+}
+
 nav li{
     display:inline-block;
 }
