@@ -94,8 +94,8 @@
                 
                 $stmt = self::$oDataBase->prepare($sQuery);
                 
-                foreach($aQueryParams as $key => $value){
-                    $stmt->bindValue($key, $value);
+                foreach($aQueryParams as $key => &$value){
+                    $stmt->bindParam($key, $value);
                 }
                 $iAffectedRows = $stmt->execute() or die(print_r(self::$oDataBase->errorInfo()));
             } catch (PDOException $oPdoException) {
