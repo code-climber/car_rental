@@ -15,6 +15,9 @@ use car_rental\model\Callback;
  */
 class backController {
 
+    /*
+     * display home for admin
+     */
     public function homeAction() {
         $aBrands = CarManager::getAllBrands();
 //        var_dump($aBrands);die();

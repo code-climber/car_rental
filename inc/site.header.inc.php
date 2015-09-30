@@ -13,8 +13,12 @@
         <!--Date picker -->
         <script>
             $(function(){
-                $('#datepicker').datepicker();
-                $('#datepicker2').datepicker();
+                $('#datepicker').datepicker({
+                    minDate: 0
+                });
+                $('#datepicker2').datepicker({
+                    minDate: 0
+                });
             });
         </script>
 
