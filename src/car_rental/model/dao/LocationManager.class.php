@@ -22,10 +22,10 @@ class LocationManager {
     
     public static function getAllLocations(){
         $sQuery = 'SELECT * FROM locations;';
-//        var_dump($sQuery);die();
+        $aQueryParams = array();
         $aLocations = array();
         
-        foreach(DBOperation::getAll($sQuery,'') as $aLocation){
+        foreach(DBOperation::getAll($sQuery,$aQueryParams) as $aLocation){
             $aLocations[] = self::convertToObject($aLocation);
         }
         return $aLocations;

@@ -42,7 +42,7 @@ class ClientManager {
         $sQuery .= "VALUES (':firstName',':lastName',':email',':login',':saltedPasswd')";
         
         $aQueryParams = array(':firstName' => $sFirstName,':lastName' => $sLastName,':email' => $sEmail,':login' => $sLogin,':saltedPasswd'=>$sPasswordSalted);
-       
+      
         $bSuccess = DBOperation::exec($sQuery,$aQueryParams);
         
         if(!$bSuccess){

@@ -191,7 +191,7 @@ class frontController {
             
             require ROOT . 'src/car_rental/view/car_list.php';
             
-            var_dump($_SESSION);
+//            var_dump($_SESSION);
         }
     }
 

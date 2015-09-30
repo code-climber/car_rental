@@ -22,10 +22,10 @@ class CategoryManager {
     
     public static function getAllCategories(){
         $sQuery = 'SELECT * FROM categories;';
-        
+        $aQueryParams = array();
         $aCategories = array();
         
-        foreach(DBOperation::getAll($sQuery,'') as $aCategory){
+        foreach(DBOperation::getAll($sQuery,$aQueryParams) as $aCategory){
             $aCategories[] = self::convertToObject($aCategory);
         }
         return $aCategories;

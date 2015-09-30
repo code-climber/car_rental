@@ -47,8 +47,7 @@
             try {
                 $aAll = array();
                 $stmt = self::$oDataBase->prepare($sQuery);
-                $stmt->bindParam(':idCar', $bindParam);
-                $stmt->execute();
+                $stmt->execute($bindParam);
                 foreach ($stmt as $aRow) {
                     $aAll[] = $aRow;
                 }
@@ -70,8 +69,7 @@
             self::init();
             try {
                 $stmt = self::$oDataBase->prepare($sQuery);
-                $stmt->bindParam(':idCar', $bindParam);
-                $stmt->execute() or die(print_r(self::$oDataBase->errorInfo()));
+                $stmt->execute($bindParam) or die(print_r(self::$oDataBase->errorInfo()));
                 $aRow = $stmt->fetch();
 
             } catch (PDOException $oPdoException) {
@@ -94,10 +92,10 @@
                 
                 $stmt = self::$oDataBase->prepare($sQuery);
                 
-                foreach($aQueryParams as $key => &$value){
-                    $stmt->bindParam($key, $value);
-                }
-                $iAffectedRows = $stmt->execute() or die(print_r(self::$oDataBase->errorInfo()));
+//                foreach($aQueryParams as $key => &$value){
+//                    $stmt->bindParam($key, $value);
+//                }
+                $iAffectedRows = $stmt->execute($aQueryParams) or die(print_r(self::$oDataBase->errorInfo()));
             } catch (PDOException $oPdoException) {
                 echo 'PDO Exception : ' . $oPdoException->getMessage();
             }

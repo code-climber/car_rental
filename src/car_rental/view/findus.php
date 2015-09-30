@@ -19,13 +19,13 @@
     var geoJsonFeature = {
         "type": "Feature",
         "properties": {
-            "name": "Bellevue",
-            "amenity": "Quartier de Brest",
-            "popupContent": "Quartier chaud les gars !"
+            "name": "New York Rental Store",
+            "amenity": "New York Rental Store",
+            "popupContent": "The right place to start explore the big apple !"
         },
         "geometry": {
             "type": "Point",
-            "coordinates": [-4.493077, 48.400773]
+            "coordinates": [-74.020193, 40.775271]
         }
     };
 
